@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="common.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="posix_threads.cpp">
+      <Filter>PosixThreads</Filter>
+    </ClCompile>
+    <ClCompile Include="serial_poisson.cpp">
+      <Filter>Serival</Filter>
+    </ClCompile>
+    <ClCompile Include="open_mp_poisson.cpp">
+      <Filter>OpenMp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{18ee2033-ce39-47a5-9b43-cccd516ebb58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PosixThreads">
+      <UniqueIdentifier>{e64d9d26-7492-4ebe-b073-5ec13cace856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Serival">
+      <UniqueIdentifier>{79820cf7-27a9-4624-a5fa-c419cab5b33c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenMp">
+      <UniqueIdentifier>{da32568a-14e2-44e2-a459-e590d3cd0d68}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="posix_threads.h">
+      <Filter>PosixThreads</Filter>
+    </ClInclude>
+    <ClInclude Include="serial_poisson.h">
+      <Filter>Serival</Filter>
+    </ClInclude>
+    <ClInclude Include="open_mp_poisson.h">
+      <Filter>OpenMp</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
