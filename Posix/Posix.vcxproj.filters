@@ -14,6 +14,9 @@
     <ClCompile Include="open_mp_poisson.cpp">
       <Filter>OpenMp</Filter>
     </ClCompile>
+    <ClCompile Include="mpi_poisson.cpp">
+      <Filter>MPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -28,6 +31,9 @@
     <Filter Include="OpenMp">
       <UniqueIdentifier>{da32568a-14e2-44e2-a459-e590d3cd0d68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MPI">
+      <UniqueIdentifier>{ab0b7e46-e29b-41cf-9b81-9c42feec6df2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -41,6 +47,9 @@
     </ClInclude>
     <ClInclude Include="open_mp_poisson.h">
       <Filter>OpenMp</Filter>
+    </ClInclude>
+    <ClInclude Include="mpi_poisson.h">
+      <Filter>MPI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

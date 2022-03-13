@@ -77,12 +77,14 @@
   <ItemGroup>
     <ClCompile Include="common.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mpi_poisson.cpp" />
     <ClCompile Include="open_mp_poisson.cpp" />
     <ClCompile Include="posix_threads.cpp" />
     <ClCompile Include="serial_poisson.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
+    <ClInclude Include="mpi_poisson.h" />
     <ClInclude Include="open_mp_poisson.h" />
     <ClInclude Include="posix_threads.h" />
     <ClInclude Include="serial_poisson.h" />

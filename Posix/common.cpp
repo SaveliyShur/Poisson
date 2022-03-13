@@ -16,7 +16,7 @@ int test_solves(double** solves, double** test, int N, int M, int D, double max_
 		for (int j = 0; j < M; j++) {
 			double r = test[i][j] - solves[i][j];
 			if (fabs(test[i][j] - solves[i][j]) > max_error) {
-				printf("Failed is %.10lf, i = %d, j = %d\n", fabs(test[i][j] - solves[i][j]), i, j);
+				//printf("Failed is %.10lf, i = %d, j = %d\n", fabs(test[i][j] - solves[i][j]), i, j);
 				if (print_solver) {
 					print_solution(test, N, M);
 					printf("\n\n\n\n");
