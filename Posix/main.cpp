@@ -9,15 +9,15 @@
 
 int main()
 {
-	int N = 51; // кол-во точек по x
-	int M = 51; // кол-во точек по y
-	double D = 1.0; // отношение сторон прямоугольника
-	int thread = 32;
+	int N = 22;
+	int M = 22;
+	double D = 1.0;
+	int thread = 2;
 
 	omp_set_num_threads(thread);
 
 	double t1 = omp_get_wtime();
-	double** w = open_mp_poisson_executor(N, M, D, false);
+	double** w = posix_threads_poisson_executor(N, M, D, false, 5000, 1e-6, 4);
 	double t2 = omp_get_wtime();
 	printf("Time = %.5lf s\n", t2 - t1);
 

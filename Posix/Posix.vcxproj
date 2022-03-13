@@ -91,9 +91,18 @@
     <Link>
       <AdditionalOptions>-pthread -fopenmp %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <ClCompile />
     <ClCompile>
-      <AdditionalOptions>-fopenmp %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> -fopenmp -pthread %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions> -fopenmp -D_GLIBCXX_GTHREAD_USE_WEAK=0 -pthread -lrt -lpthread -static %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>-pthread -fopenmp -lrt -lpthread %(AdditionalOptions)</AdditionalOptions>
+    </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
