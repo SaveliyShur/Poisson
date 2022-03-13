@@ -6,8 +6,10 @@
 #include "common.h"
 
 static pthread_barrier_t barrier;
+static pthread_barrier_t barrier2;
 
 typedef struct {
+	int count;
 	int M;
 	int N;
 	int i;
@@ -20,13 +22,24 @@ typedef struct {
 
 void* threadFunc(void* thread_data) {
 	pthrData* data = (pthrData*)thread_data;
-
-	for (int f = data->i; f < data->N; f = f + data->num_threads) {
-		for (int j = 1; j < data->M - 1; j++) {
-			data->w[f][j] = ((data->w_old[f - 1][j] + data->w_old[f + 1][j]) * pow(data->hy, 2) + \
-				(data->w_old[f][j - 1] + data->w_old[f][j + 1]) * pow(data->hx, 2) + \
-				pow(data->hx, 2) * pow(data->hy, 2)) * 0.5 / (pow(data->hx, 2) + pow(data->hy, 2));
+	for (int c = 0; c < data->count; c++) {
+		for (int f = data->i; f < data->N; f = f + data->num_threads) {
+			for (int j = 1; j < data->M - 1; j++) {
+				data->w_old[f][j] = data->w[f][j];
+			}
 		}
+
+		pthread_barrier_wait(&barrier);
+
+		for (int f = data->i; f < data->N; f = f + data->num_threads) {
+			for (int j = 1; j < data->M - 1; j++) {
+				data->w[f][j] = ((data->w_old[f - 1][j] + data->w_old[f + 1][j]) * pow(data->hy, 2) + \
+					(data->w_old[f][j - 1] + data->w_old[f][j + 1]) * pow(data->hx, 2) + \
+					pow(data->hx, 2) * pow(data->hy, 2)) * 0.5 / (pow(data->hx, 2) + pow(data->hy, 2));
+			}
+		}
+
+		pthread_barrier_wait(&barrier2);
 	}
 	
 	return NULL;
@@ -61,12 +74,9 @@ double** posix_threads_poisson_executor(int N, int M, double D = 1.0, bool progr
 	while (error >= epsilon)
 	{
 		error = 0.0;
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				w_old[i][j] = w[i][j];
-			}
-		}
-		number_iteration++;
+
+		pthread_barrier_init(&barrier, NULL, num_threads);
+		pthread_barrier_init(&barrier2, NULL, num_threads);
 
 		for (int i = 0; i < num_threads; i++) {
 			threadData[i].hx = hx;
@@ -77,10 +87,13 @@ double** posix_threads_poisson_executor(int N, int M, double D = 1.0, bool progr
 			threadData[i].num_threads = num_threads;
 			threadData[i].w = w;
 			threadData[i].w_old = w_old;
+			threadData[i].count = 100;
 
 			pthread_create(&(threads[i]), NULL, &threadFunc, &threadData[i]);
 		}
 		
+		number_iteration = number_iteration + 100;
+
 		for (int d = 0; d < num_threads; d++) {
 			pthread_join(threads[d], NULL);
 		}
@@ -100,6 +113,8 @@ double** posix_threads_poisson_executor(int N, int M, double D = 1.0, bool progr
 		}
 	}
 
+	pthread_barrier_destroy(&barrier);
+	pthread_barrier_destroy(&barrier2);
 	free(threads);
 	free(threadData);
 	for (int i = 0; i < N; i++) {
