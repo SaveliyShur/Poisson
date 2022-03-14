@@ -18,7 +18,7 @@ int main()
 	omp_set_num_threads(thread);
 
 	double t1 = omp_get_wtime();
-	double** w = posix_threads_poisson_executor(N, M, D, false, 100000, 1e-9, 4);
+	double** w = posix_threads_poisson_executor(N, M, D, false, 100000, 1e-9, 2);
 	double t2 = omp_get_wtime();
 	printf("Time = %.5lf s\n", t2 - t1);
 

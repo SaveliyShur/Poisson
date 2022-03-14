@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <math.h>
-#include <mpi.h>
 
 #include "common.h"
 
