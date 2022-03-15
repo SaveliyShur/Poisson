@@ -13,18 +13,18 @@ int main()
 	int N = 100;
 	int M = 100;
 	double D = 1.0;
-	int thread = 10;
+	int thread = 8;
 
 	omp_set_num_threads(thread);
 
 	double t1 = omp_get_wtime();
-	double** w = posix_threads_poisson_executor(N, M, D, false, 100000, 1e-9, 2);
+	double** w = serial_poisson_executor(N, M, D, false, 100000, 1e-9);
 	double t2 = omp_get_wtime();
 	printf("Time = %.5lf s\n", t2 - t1);
 
 	double** test = serial_poisson_executor(N, M, D, false);
 	printf("Run tests:\n");
-	int test_flag = test_solves(w, test, N, M, D, 1e-4, false);
+	int test_flag = test_solves(w, test, N, M, D, 1e-1, false);
 	if (test_flag) {
 		printf("Test success!\n");
 	}

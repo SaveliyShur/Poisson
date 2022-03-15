@@ -47,7 +47,7 @@ double** open_mp_poisson_executor(int N, int M, double D = 1.0, bool progress = 
 			error = 0;
 			#pragma omp parallel shared(error, w, w_old, hy, hx) private(i, j) 
 			{
-				for (int di = 0; di < 50; di++) {
+				for (int di = 0; di < 100; di++) {
 					#pragma omp for
 					for (i = 0; i < N; i++) {
 						for (j = 0; j < M; j++) {
@@ -74,7 +74,7 @@ double** open_mp_poisson_executor(int N, int M, double D = 1.0, bool progress = 
 				}
 			}
 
-			number_iteration = number_iteration + 50;
+			number_iteration = number_iteration + 100;
 			if (number_iteration > max_iter) {
 				break;
 			}
