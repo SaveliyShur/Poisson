@@ -6,7 +6,7 @@
 # include <time.h>
 
 double L = 1.0;			
-int N = 32;		
+int N = 10;		
 
 double* u, * u_new;		
 
@@ -29,7 +29,7 @@ void timestamp();
 int main(int argc, char* argv[])
 {
     double change;
-    double epsilon = 1.0E-03;
+    double epsilon = 1.0E-09;
     double* f;
     char file_name[100];
     int i;
@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-        N = 32;
+        N = 10;
     }
 
     if (2 < argc)
@@ -69,20 +69,6 @@ int main(int argc, char* argv[])
     else
     {
         strcpy(file_name, "poisson_mpi.out");
-    }
-    if (my_rank == 0)
-    {
-        timestamp();
-        printf("\n");
-        printf("POISSON_MPI:\n");
-        printf("  C version\n");
-        printf("  2-D Poisson equation using Jacobi algorithm\n");
-        printf("  ===========================================\n");
-        printf("  MPI version: 1-D domains, non-blocking send/receive\n");
-        printf("  Number of processes         = %d\n", num_procs);
-        printf("  Number of interior vertices = %d\n", N);
-        printf("  Desired fractional accuracy = %f\n", epsilon);
-        printf("\n");
     }
 
     allocate_arrays();
@@ -128,8 +114,8 @@ int main(int argc, char* argv[])
         }
         if (my_rank == 0 && (step % 10) == 0)
         {
-            printf("  N = %d, n = %d, my_n = %d, Step %4d  Error = %g\n",
-                N, n, my_n, step, change);
+           // printf("  N = %d, n = %d, my_n = %d, Step %4d  Error = %g\n",
+                //N, n, my_n, step, change);
         }
         swap = u;
         u = u_new;
@@ -165,20 +151,19 @@ int main(int argc, char* argv[])
             printf("\n");
         }
     }
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
+    //printf("\n");
+    //printf("\n");
+    //printf("\n");
+    //printf("\n");
+    //printf("\n");
 
 
     if (my_rank == num_procs - 1) {
-        printf("Second\n");
         for (int i = 0; i <= N+1; i++) {
             for (j = 0; j <= N+1; j++) {
-                printf("%.3lf ", u[INDEX(i, j)]);
+                //printf("%.3lf ", u[INDEX(i, j)]);
             }
-            printf("\n");
+            //printf("\n");
         }
     }
 
